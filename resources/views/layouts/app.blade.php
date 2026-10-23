@@ -260,7 +260,21 @@
         {{-- Navigasi --}}
         <nav class="lb-nav">
             <a href="{{ route('laporbanjir.form') }}">📋 Lapor</a>
-            <a href="{{ route('laporbanjir.daftar') }}">📄 Daftar Laporan</a>
+
+            @guest
+                <a href="{{ route('laporbanjir.login') }}">🔐 Login</a>
+                <a href="{{ route('laporbanjir.register') }}" class="btn-nav-outline">📝 Register</a>
+            @endguest
+
+            @auth
+                <a href="{{ route('laporbanjir.daftar') }}">📄 Daftar Laporan</a>
+                <a href="{{ route('laporbanjir.profile') }}">👤 Profil Petugas</a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">🚪 Logout</a>
+                <form id="logout-form" action="{{ route('laporbanjir.logout') }}" method="POST" style="display:none;">
+                    @csrf
+                </form>
+            @endauth
+
             <a href="{{ route('home') }}" class="btn-nav-outline">🏠 SmartEdu</a>
         </nav>
     </div>
